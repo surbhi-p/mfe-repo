@@ -1,19 +1,27 @@
 const { VueLoaderPlugin } = require('vue-loader');
+const webpack = require('webpack');
 
 module.exports = {
+  // entry: './src/index.js',
+  // ouput: {
+  //   filename: '[name].[contenthash].js',
+  // },
+  // resolve: {
+  //   extensions: ['.js', '.vue'],
+  // },
   module: {
     rules: [
       {
-        test: /\.(png|jpg?e|gif|woff|svg|eot|ttf)$/i,
-        use: [{ loade: 'file-loader' }]
+        test: /\.(png|jpe?g|gif|woff|svg|eot|ttf)$/i,
+        use: [{ loader: 'file-loader' }],
       },
       {
         test: /\.vue$/,
-        use: 'vue-loader'
+        use: 'vue-loader',
       },
       {
-        test: /\.scss|\.css/,
-        use: ['vue-style-loader', 'style-loader', 'css-loader', 'sass-loader']
+        test: /\.scss|\.css$/,
+        use: ['vue-style-loader', 'style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.m?js$/,
@@ -28,4 +36,18 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new VueLoaderPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        entry: './src/index.js',
+        ouput: {
+          filename: '[name].[contenthash].js',
+        },
+        resolve: {
+          extensions: ['.js', '.vue'],
+        },
+      }
+    })
+  ],
 };
