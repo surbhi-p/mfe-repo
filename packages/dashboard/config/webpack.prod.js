@@ -1,15 +1,13 @@
 const { merge } = require('webpack-merge');
-const commonConfig = require('./webpack.common');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const packageJson = require('../package.json');
+const commonConfig = require('./webpack.common');
 
-const domain = process.env.PRODUCTION_DOMAIN
-
-const pordConfig = {
+const prodConfig = {
   mode: 'production',
   output: {
     filename: '[name].[contenthash].js',
-    publicPath: '/dashboard/latest',
+    publicPath: '/dashboard/latest/',
   },
   plugins: [
     new ModuleFederationPlugin({
@@ -18,9 +16,9 @@ const pordConfig = {
       exposes: {
         './DashboardApp': './src/bootstrap',
       },
-      shared: packageJson.dependencies
-    })
-  ]
-}
+      shared: packageJson.dependencies,
+    }),
+  ],
+};
 
-module.exports = merge(commonConfig, pordConfig);
+module.exports = merge(commonConfig, prodConfig);
