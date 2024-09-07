@@ -14,6 +14,7 @@ const pordConfig = {
   plugins: [
     new ModuleFederationPlugin({
       name: 'auth',
+      filename: 'remoteEntry.js',
       exposes: {
         './AuthApp': './src/bootstrap',
       },
